@@ -160,3 +160,47 @@ class ContainerRifiutiSpeciali extends Container{
         }
     }
 }
+
+class Piazzola{
+    #pilaContainer;
+    #codiceNumerico;
+
+    constructor(codiceNumerico){
+        this.#pilaContainer = [];
+        this.#codiceNumerico = codiceNumerico;
+    }
+
+    /**
+     * @param {Array} pilaContainer 
+     */
+    constructor(pilaContainer, codiceNumerico){
+        this.#pilaContainer = pilaContainer;
+        this.#codiceNumerico = codiceNumerico;
+    }
+
+    get #pilaContainer(){
+        return this.#pilaContainer;
+    }
+
+    /**
+     * @param {Array} pilaContainer 
+     */
+    set #pilaContainer(pilaContainer){
+        this.#pilaContainer = pilaContainer;
+    }
+
+    get #codiceNumerico(){
+        return this.#codiceNumerico;
+    }
+
+    /**
+     * @param {number} codiceNumerico 
+     */
+    set #codiceNumerico(codiceNumerico){
+        if (codiceNumerico < 0){
+            this.#codiceNumerico = codiceNumerico;
+        } else{
+            this.#codiceNumerico = codiceNumerico;
+        }
+    }
+}
