@@ -12,25 +12,25 @@ class Container{
         this.#descrizione = descrizione;
     }
 
-    get #codiceNumerico(){
+    get codiceNumerico(){
         return this.#codiceNumerico;
     }
 
     /**
      * @param {number} codiceNumerico
      */
-    set #codiceNumerico(codiceNumerico){
+    set codiceNumerico(codiceNumerico){
         this.#codiceNumerico = codiceNumerico;
     }
 
-    get #descrizione(){
+    get descrizione(){
         return this.#descrizione;
     }
 
     /**
      * @param {string} descrizione : max 100 caratteri
      */
-    set #descrizione(descrizione){
+    set descrizione(descrizione){
         if (descrizione.length <= 100){
             this.#descrizione = descrizione;
         } else{
@@ -56,14 +56,14 @@ class ContainerLiquidi extends Container{
         this.#tipoChiusuraErmetica = tipoChiusuraErmetica;
     }
 
-    get #capacitaMaxLitri(){
+    get capacitaMaxLitri(){
         return this.#capacitaMaxLitri;
     }
 
     /**
      * @param {number} capacitaMaxLitri 
      */
-    set #capacitaMaxLitri(capacitaMaxLitri){
+    set capacitaMaxLitri(capacitaMaxLitri){
         if (capacitaMaxLitri < 0){
             this.#capacitaMaxLitri = -capacitaMaxLitri;
         } else{
@@ -71,14 +71,14 @@ class ContainerLiquidi extends Container{
         }
     }
 
-    get #tipoChiusuraErmetica(){
+    get tipoChiusuraErmetica(){
         return this.#tipoChiusuraErmetica;
     }
 
     /**
      * @param {string} tipoChiusuraErmetica 
      */
-    set #tipoChiusuraErmetica(tipoChiusuraErmetica){
+    set tipoChiusuraErmetica(tipoChiusuraErmetica){
         this.#tipoChiusuraErmetica = tipoChiusuraErmetica;
     }
 }
@@ -97,14 +97,14 @@ class ContainerSolidi extends Container{
         this.#capienzaMaxKg = capienzaMaxKg;
     }
 
-    get #capienzaMaxKg(){
+    get capienzaMaxKg(){
         return this.#capienzaMaxKg;
     }
     
     /**
      * @param {number} capienzaMaxKg 
      */
-    set #capienzaMaxKg(capienzaMaxKg){
+    set capienzaMaxKg(capienzaMaxKg){
         if (capienzaMaxKg < 0){
             this.#capienzaMaxKg = -capienzaMaxKg;
         } else{
@@ -130,14 +130,14 @@ class ContainerRifiutiSpeciali extends Container{
         this.#livelloRadioattivita = livelloRadioattivita;
     }
 
-    get #capienzaMaxKg(){
+    get capienzaMaxKg(){
         return this.#capienzaMaxKg;
     }
 
     /**
      * @param {number} capienzaMaxKg 
      */
-    set #capienzaMaxKg(capienzaMaxKg){
+    set capienzaMaxKg(capienzaMaxKg){
         if (capienzaMaxKg < 0){
             this.#capienzaMaxKg = -capienzaMaxKg;
         } else{
@@ -145,14 +145,14 @@ class ContainerRifiutiSpeciali extends Container{
         }
     }
 
-    get #livelloRadioattivita(){
+    get livelloRadioattivita(){
         return this.#livelloRadioattivita;
     }
 
     /**
      * @param {number} livelloRadioattivita 
      */
-    set #livelloRadioattivita(livelloRadioattivita){
+    set livelloRadioattivita(livelloRadioattivita){
         if (livelloRadioattivita < 0){
             this.#livelloRadioattivita = -livelloRadioattivita;
         } else{
@@ -170,22 +170,14 @@ class Piazzola{
         this.#codiceNumerico = codiceNumerico;
     }
 
-    /**
-     * @param {Array} pilaContainer 
-     */
-    constructor(pilaContainer, codiceNumerico){
-        this.#pilaContainer = pilaContainer;
-        this.#codiceNumerico = codiceNumerico;
-    }
-
-    get #pilaContainer(){
+    get pilaContainer(){
         return this.#pilaContainer;
     }
 
     /**
      * @param {Array} pilaContainer 
      */
-    set #pilaContainer(pilaContainer){
+    set pilaContainer(pilaContainer){
         if (pilaContainer.length > 5){
             while (pilaContainer.length > 5){
                 pilaContainer.pop();
@@ -196,14 +188,14 @@ class Piazzola{
         }
     }
 
-    get #codiceNumerico(){
+    get codiceNumerico(){
         return this.#codiceNumerico;
     }
 
     /**
      * @param {number} codiceNumerico 
      */
-    set #codiceNumerico(codiceNumerico){
+    set codiceNumerico(codiceNumerico){
         if (codiceNumerico < 0){
             this.#codiceNumerico = codiceNumerico;
         } else{
@@ -219,22 +211,14 @@ class Deposito{
         this.#piazzole = [];
     }
 
-    /**
-     * 
-     * @param {Array} piazzole 
-     */
-    constructor(piazzole){
-        this.#piazzole = piazzole;
-    }
-
-    get #piazzole(){
+    get piazzole(){
         return this.#piazzole;
     }
 
     /**
      * @param {Array} piazzole 
      */
-    set #piazzole(piazzole){
+    set piazzole(piazzole){
         this.#piazzole = piazzole;
     }
 
@@ -304,6 +288,91 @@ class Deposito{
             }
         }
         return -1;
+    }
+
+    /**
+     * 
+     * @param {string} modalita : modalità dell'input
+     */
+    preparaInput(modalita){
+        const divInput = document.getElementById("input");
+        // Svuoto il div di input
+        while (divInput.hasChildNodes()){
+            divInput.remove(divInput.firstChild);
+        }
+        switch(modalita){
+            case "piazzola":
+                // Input piazzola
+                const labelCodiceNumerico = document.createElement("label");
+                const codiceNumerico = document.createElement("input");
+                codiceNumerico.id = "nPiazzola";
+                codiceNumerico.type = "number";
+                codiceNumerico.min = 0;
+                labelCodiceNumerico.innerHTML = "Codice numerico: ";
+                divInput.appendChild(labelCodiceNumerico);
+                divInput.append(codiceNumerico);
+                divInput.innerHTML += "<br>";
+                const btnConferma = document.createElement("button");
+                btnConferma.innerHTML = "Conferma";
+                btnConferma.onclick = function(){deposito.checkInput("piazzola")};
+                divInput.appendChild(btnConferma);
+                break;
+            case "aggiungi_container_piazzola":
+                // Input piazzola
+                const etichettaCodiceNumerico = document.createElement("label");
+                const codNum = document.createElement("input");
+                codNum.id = "nPiazzola";
+                codNum.type = "number";
+                codNum.min = 0;
+                etichettaCodiceNumerico.innerHTML = "Codice numerico: ";
+                divInput.appendChild(etichettaCodiceNumerico);
+                divInput.append(codNum);
+                divInput.innerHTML += "<br>";
+                const btnOK = document.createElement("button");
+                btnOK.innerHTML = "Conferma";
+                btnOK.onclick = function(){deposito.checkInput("aggiungi_container_piazzola")};
+                divInput.appendChild(btnOK);
+                // Input container
+                const etichettaCodiceNumerico = document.createElement("label");
+                const codNum = document.createElement("input");
+                codNum.id = "nPiazzola";
+                codNum.type = "number";
+                codNum.min = 0;
+                etichettaCodiceNumerico.innerHTML = "Codice numerico: ";
+                divInput.appendChild(etichettaCodiceNumerico);
+                divInput.append(codNum);
+                divInput.innerHTML += "<br>";
+        }
+    }
+
+    /**
+     * 
+     * @param {string} modalita : modalità input da verificare
+     */
+    checkInput(modalita){
+        const divInput = document.getElementById("input");
+        const divLog = document.getElementById("log");
+        switch(modalita){
+            case "piazzola":
+                const numPiazzola = document.getElementById("nPiazzola");
+                if (numPiazzola.value == "null" || numPiazzola.value == "undefined"){
+                    numPiazzola.focus();
+                    divLog.innerHTML = "Numero di piazzola mancante!";
+                } else{
+                    let giaPresente = false;
+                    for (let i = 0; (i < this.#piazzole.length & !giaPresente); i++){
+                        if (this.#piazzole[i].codiceNumerico == numPiazzola){
+                            giaPresente = true;
+                        }
+                    }
+                    if (!giaPresente){
+                        this.#piazzole.push(new Piazzola(numPiazzola));
+                    } else{
+                        divLog.innerHTML = "Esiste già una piazzola con questo numero!";
+                    }
+                }
+                break;
+        }
     }
 }
 
