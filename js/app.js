@@ -186,7 +186,14 @@ class Piazzola{
      * @param {Array} pilaContainer 
      */
     set #pilaContainer(pilaContainer){
-        this.#pilaContainer = pilaContainer;
+        if (pilaContainer.length > 5){
+            while (pilaContainer.length > 5){
+                pilaContainer.pop();
+            }
+            this.#pilaContainer = pilaContainer;
+        } else{
+            this.#pilaContainer = pilaContainer;
+        }
     }
 
     get #codiceNumerico(){
@@ -204,3 +211,100 @@ class Piazzola{
         }
     }
 }
+
+class Deposito{
+    #piazzole
+
+    constructor(){
+        this.#piazzole = [];
+    }
+
+    /**
+     * 
+     * @param {Array} piazzole 
+     */
+    constructor(piazzole){
+        this.#piazzole = piazzole;
+    }
+
+    get #piazzole(){
+        return this.#piazzole;
+    }
+
+    /**
+     * @param {Array} piazzole 
+     */
+    set #piazzole(piazzole){
+        this.#piazzole = piazzole;
+    }
+
+    /**
+     * @param {Container} container
+     * @param {number} numeroPiazzola 
+     * @returns true: operazione avvenuta
+     * @returns false: operazione non riuscita
+     */
+    aggiungiContainer(container, numeroPiazzola){
+        for (let i = 0; i < this.#piazzole.length; i++){
+            if (this.#piazzole[i].codiceNumerico == numeroPiazzola){
+                this.#piazzole.push(container);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param {number} codiceContainer
+     * @param {number} numeroPiazzola 
+     * @returns il container se l'operazione è riuscita
+     * @returns false: operazione non riuscita
+     */
+    prelevaContainer(codiceContainer, numeroPiazzola){
+        for (let i = 0; i < this.#piazzole.length; i++){
+            if (this.#piazzole[i].codiceNumerico == numeroPiazzola){
+                for (let j = 0; j < this.#piazzole[i].pilaContainer.length; j++){
+                    if (this.#piazzole[i].pilaContainer[j].codiceNumerico == codiceContainer){
+                        let container = this.#piazzole[i].pilaContainer[j];
+                        this.#piazzole[i].pilaContainer = this.#piazzole[i].pilaContainer.splice(j, 1);
+                        return container;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @returns il numero della piazzola
+     * @returns -1 se non ci sono piazzole disponibili
+     */
+    ricercaPiazzolaDisponibile(){
+        for (let i = 0; i < this.#piazzole.length; i++){
+            if (this.#piazzole[i].pilaContainer.length < 5){
+                return this.#piazzole[i].pilaContainer.codiceNumerico;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 
+     * @param {number} numContainer 
+     * @returns il numero della piazzola che contiene il container scelto
+     * @returns -1 se non viene trovato alcun container nelle piazzole
+     */
+    ricercaNumPiazzolaDaNumContainer(numContainer){
+        for (let i = 0; i < this.#piazzole.length; i++){
+            let piazzola = this.#piazzole[i];
+            for (let j = 0; j < piazzola.pilaContainer.length; j++){
+                if (piazzola.pilaContainer[j].codiceNumerico == numContainer){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+let deposito = new Deposito();
