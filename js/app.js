@@ -294,6 +294,7 @@ class Deposito{
      * 
      * @param {string} modalita : modalità dell'input
      */
+    /*
     preparaInput(modalita){
         const divInput = document.getElementById("input");
         // Svuoto il div di input
@@ -344,11 +345,13 @@ class Deposito{
                 divInput.innerHTML += "<br>";
         }
     }
+    */
 
     /**
      * 
      * @param {string} modalita : modalità input da verificare
      */
+    /*
     checkInput(modalita){
         const divInput = document.getElementById("input");
         const divLog = document.getElementById("log");
@@ -374,6 +377,7 @@ class Deposito{
                 break;
         }
     }
+    */
 }
 
 let deposito = new Deposito();
