@@ -256,7 +256,7 @@ class Deposito{
                 }
             }
         }
-        return false;
+        return null;
     }
 
     /**
